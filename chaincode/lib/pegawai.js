@@ -15,10 +15,11 @@ class PegawaiCC extends Contract {
                 nip_bps: '123456789',
                 nip: '1990281937213',
                 nama: 'Saya Nama 1',
-                jk: 'Laki-laki',
+                jenis_kelamin: 'Laki-laki',
                 tempat_lahir: 'Kebumen',
                 tanggal_lahir: '21 Juni 1990',
                 no_telepon: '082837183718',
+                no_handphone: '082837183718',
                 email: 'saya1@mail.com',
                 alamat: 'Kebumen',
                 perkiraan_pensiun: '2045',
@@ -42,14 +43,15 @@ class PegawaiCC extends Contract {
                     ],
             },
             {
-                nip_bps: '23567890',
-                nip: '1990281937212',
-                nama: 'Saya Nama 2',
-                jk: 'Laki-laki',
+                nip_bps: '123456789',
+                nip: '1990281937213',
+                nama: 'Saya Nama 1',
+                jenis_kelamin: 'Laki-laki',
                 tempat_lahir: 'Kebumen',
                 tanggal_lahir: '21 Juni 1990',
                 no_telepon: '082837183718',
-                email: 'saya2@mail.com',
+                no_handphone: '082837183718',
+                email: 'saya1@mail.com',
                 alamat: 'Kebumen',
                 perkiraan_pensiun: '2045',
                 jabatan_terakhir: 'Kepala',
@@ -61,7 +63,7 @@ class PegawaiCC extends Contract {
                     [
                         {
                             nama_prodi_jurusan: 'SD',
-                            nama_instansi_pendidikan: 'SD',
+                            nama_instansi_pendidikan: 'SD Semesta Alam',
                             tahun_lulus: '2001'
                         },
                         {
@@ -75,11 +77,12 @@ class PegawaiCC extends Contract {
                 nip_bps: '35678901',
                 nip: '1990281937243',
                 nama: 'Saya Nama 3',
-                jk: 'Laki-laki',
+                jenis_kelamin: 'Laki-laki',
                 tempat_lahir: 'Kebumen',
                 tanggal_lahir: '21 Juni 1990',
                 no_telepon: '082837183718',
-                email: 'saya3@mail.com',
+                no_handphone: '082837183718',
+                email: 'saya1@mail.com',
                 alamat: 'Kebumen',
                 perkiraan_pensiun: '2045',
                 jabatan_terakhir: 'Kepala',
@@ -96,7 +99,7 @@ class PegawaiCC extends Contract {
                         },
                         {
                             nama_prodi_jurusan: 'SMP',
-                            nama_instansi_pendidikan: 'SMP',
+                            nama_instansi_pendidikan: 'SMP Purna Bakti',
                             tahun_lulus: '2007'
                         }
                     ],
@@ -110,7 +113,7 @@ class PegawaiCC extends Contract {
         console.info('============= END : Initialize Ledger ===========');
     }
 
-    async createPegawai(ctx, id_number, nip_bps, nip, nama, jk, tempat_lahir, tanggal_lahir, no_telepon, email, alamat, perkiraan_pensiun, jabatan_terakhir, status_pegawai, nama_instansi, alamat_instansi, notelp_instansi, pendidikan) {
+    async createPegawai(ctx, id_number, nip_bps, nip, nama, jk, tempat_lahir, tanggal_lahir, no_telepon, no_handphone, email, alamat, perkiraan_pensiun, jabatan_terakhir, status_pegawai, nama_instansi, alamat_instansi, notelp_instansi, pendidikan) {
         const pegawai = await ctx.stub.getState(id_number);
         if (!pegawai || pegawai.length === 0) {
             const pegawai =
@@ -118,10 +121,11 @@ class PegawaiCC extends Contract {
                 "nip_bps": nip_bps,
                 "nip": nip,
                 "nama": nama,
-                "jk": jk,
+                "jenis_kelamin": jk,
                 "tempat_lahir": tempat_lahir,
                 "tanggal_lahir": tanggal_lahir,
                 "no_telepon": no_telepon,
+                "no_handphone": no_handphone,
                 "email": email,
                 "alamat": alamat,
                 "perkiraan_pensiun": perkiraan_pensiun,
@@ -172,7 +176,7 @@ class PegawaiCC extends Contract {
 
     async queryAllPegawai(ctx) {
         const startKey = 'pgw-0';
-        const endKey = 'pgw-999999999';
+        const endKey = 'pgw-' + Number.MAX_SAFE_INTEGER;
         const allResults = [];
         for await (const { key, value } of ctx.stub.getStateByRange(startKey, endKey)) {
             const strValue = Buffer.from(value).toString('utf8');
