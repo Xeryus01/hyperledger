@@ -140,12 +140,53 @@ class PegawaiCC extends Contract {
         }
     }
 
+    async createBulkPegawai(ctx, args) {
+        args = JSON.parse(args);
+        for (let i = 0; i < args.length; i++) {
+            const pegawai = await ctx.stub.getState(args[i]['id_number']);
+            if (!pegawai || pegawai.length === 0) {
+                const pegawai =
+                {
+                    "nip_bps": args[i]['nip_bps'],
+                    "nip": args[i]['nip'],
+                    "nama": args[i]['nama'],
+                    "jenis_kelamin": args[i]['jk'],
+                    "tempat_lahir": args[i]['tempat_lahir'],
+                    "tanggal_lahir": args[i]['tanggal_lahir'],
+                    "no_telepon": args[i]['no_telepon'],
+                    "no_handphone": args[i]['no_handphone'],
+                    "email": args[i]['email'],
+                    "alamat": args[i]['alamat'],
+                    "perkiraan_pensiun": args[i]['perkiraan_pensiun'],
+                    "jabatan_terakhir": args[i]['jabatan_terakhir'],
+                    "status_pegawai": args[i]['status_pegawai'],
+                    "nama_instansi": args[i]['nama_instansi'],
+                    "alamat_instansi": args[i]['alamat_instansi'],
+                    "notelp_instansi": args[i]['notelp_instansi'],
+                };
+                pegawai["pendidikan"] = JSON.parse(args[i]['pendidikan']);
+                await ctx.stub.putState(args[i]['id_number'], Buffer.from(JSON.stringify(pegawai)));
+            }
+        }
+    }
+
     async deletePegawai(ctx, id_number) {
         const assetJSON = await ctx.stub.getState(id_number);
         if (!assetJSON && !assetJSON.length > 0) {
             throw new Error(`The asset ${id_number} does not exist`);
         }
         return ctx.stub.deleteState(id_number);
+    }
+
+    async deleteBulkPegawai(ctx, args) {
+        args = JSON.parse(args);
+        for (let i = 0; i < args.length; i++) {
+            const assetJSON = await ctx.stub.getState(args[i]['id_number']);
+            if (!assetJSON && !assetJSON.length > 0) {
+                throw new Error(`The asset ${args[i]["id_number"]} does not exist`);
+            }
+            await ctx.stub.deleteState(args[i]['id_number']);
+        }
     }
 
     async queryPegawai(ctx, id_number) {
