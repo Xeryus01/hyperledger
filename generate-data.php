@@ -342,7 +342,7 @@ $instansi = [
 
 echo "[";
 
-for ($a = 0; $a < 10; $a++) {
+for ($a = 0; $a < 10000; $a++) {
 	$jk = $faker->randomElement($array = array('LK', 'PR'));
 	$jk_nip = ($jk == 'LK') ? 1 : 2;
 	$gender = ($jk == 'LK') ? 'male' : 'female';
@@ -362,46 +362,46 @@ for ($a = 0; $a < 10; $a++) {
 	// generate data nama, alamat
 	echo "{";
 	echo "<br>";
-	echo '"nip_bps": ' . ($nip_bps + $a) . ',';
+	echo '"nip_bps": "' . ($nip_bps + $a) . '",';
 	echo "<br>";
-	echo '"nip": ' . $nip . ',';
+	echo '"nip": "' . $nip . '",';
 	echo "<br>";
-	echo '"nama": ' . $faker->name($gender) . ',';
+	echo '"nama": "' . $faker->name($gender) . '",';
 	echo "<br>";
-	echo '"jenis_kelamin": ' . $jk . ',';
+	echo '"jenis_kelamin": "' . $jk . '",';
 	echo "<br>";
-	echo '"tempat_lahir": ' . $faker->city . ',';
+	echo '"tempat_lahir": "' . $faker->city . '",';
 	echo "<br>";
-	echo '"tanggal_lahir": ' . $lahir . ',';
+	echo '"tanggal_lahir": "' . $lahir . '",';
 	echo "<br>";
-	echo '"no_telepon": ' . $faker->phoneNumber . ',';
+	echo '"no_telepon": "' . $faker->phoneNumber . '",';
 	echo "<br>";
-	echo '"no_handphone": ' . $faker->phoneNumber . ',';
+	echo '"no_handphone": "' . $faker->phoneNumber . '",';
 	echo "<br>";
-	echo '"email": ' . $faker->email . ',';
+	echo '"email": "' . $faker->email . '",';
 	echo "<br>";
-	echo '"alamat": ' . $faker->address . ',';
+	echo '"alamat": "' . $faker->address . '",';
 	echo "<br>";
-	echo '"perkiraan_pensiun": ' . $pensiun . ',';
+	echo '"perkiraan_pensiun": "' . $pensiun . '",';
 	echo "<br>";
-	echo '"jabatan_terakhir": ' . $faker->randomElement($jabatan1, $jabatan2, $jabatan3, $jabatan4) . ',';
+	echo '"jabatan_terakhir": "' . $faker->randomElement($jabatan1, $jabatan2, $jabatan3, $jabatan4) . '",';
 	echo "<br>";
-	echo '"status_pegawai": ' . $faker->randomElement($status) . ',';
+	echo '"status_pegawai": "' . $faker->randomElement($status) . '",';
 	echo "<br>";
-	echo '"golongan": ' . $faker->randomElement($golongan = array("II", "III", "IV")) . $faker->randomElement($golongan = array("a", "b", "c", "d")) . ',';
+	echo '"golongan": "' . $faker->randomElement($golongan = array("II", "III", "IV")) . $faker->randomElement($golongan = array("a", "b", "c", "d")) . '",';
 	echo "<br>";
-	echo '"nama_instansi": ';
-	echo ($instansi[$num_instansi]['nama_instansi'] != '') ? $instansi[$num_instansi]['nama_instansi'] . "," : ",";
+	echo '"nama_instansi": "';
+	echo ($instansi[$num_instansi]['nama_instansi'] != '') ? $instansi[$num_instansi]['nama_instansi'] . '",' : '",';
 	echo "<br>";
-	echo '"alamat_instansi": ';
-	echo ($instansi[$num_instansi]['alamat_instansi'] != '') ? $instansi[$num_instansi]['alamat_instansi'] . "," : ",";
+	echo '"alamat_instansi": "';
+	echo ($instansi[$num_instansi]['alamat_instansi'] != '') ? $instansi[$num_instansi]['alamat_instansi'] . '",' : '",';
 	echo "<br>";
-	echo '"notelp_instansi": ';
-	echo ($instansi[$num_instansi]['telp_instansi'] != '') ? $instansi[$num_instansi]['telp_instansi'] . "," : ",";
+	echo '"notelp_instansi": "';
+	echo ($instansi[$num_instansi]['telp_instansi'] != '') ? $instansi[$num_instansi]['telp_instansi'] . '",' : '",';
 	echo "<br>";
-	echo '"status_perkawinan": ' . $faker->randomElement($kawin = array("Belum Kawin", "Kawin", "Cerai Hidup", "Cerai Mati")) . ',';
+	echo '"status_perkawinan": "' . $faker->randomElement($kawin = array("Belum Kawin", "Kawin", "Cerai Hidup", "Cerai Mati")) . '",';
 	echo "<br>";
-	echo '"Agama": ' . $faker->randomElement($agama = array("Islam", "Kristen Protestan", "Kristen Katholik", "Hindu", "Buddha", "Konghucu")) . ',';
+	echo '"Agama": "' . $faker->randomElement($agama = array("Islam", "Kristen Protestan", "Kristen Katholik", "Hindu", "Buddha", "Konghucu")) . '"';
 	echo "<br>";
 	echo "},";
 	echo "<br>";
