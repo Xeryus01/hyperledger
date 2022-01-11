@@ -340,13 +340,26 @@ $instansi = [
 	],
 ];
 
+
+$d3 = array("Sekolah Tinggi Ilmu Statistik", "Politeknik Statistika STIS", "Akademi Ilmu Statistik", "Sekolah Tinggi Akuntansi Negara", "Sekolah Tinggi Ilmu Ekonomi Tridharma", "Institut Pertanian Bogor", "Universitas Gadjah Mada");
+$d4 = array("Sekolah Tinggi Ilmu Statistik", "Politeknik Statistika STIS", "Institut Pertanian Bogor", "Universitas Gadjah Mada", "Institut Teknologi Bandung", "Institut Teknologi Sepuluh November");
+$s1 = array("Institut Pertanian Bogor", "Institut Teknologi Sepuluh November", "Universitas Gadjah Mada", "Universitas Diponegoro", "Universitas Sriwijaya", "Universitas Indonesia", "Universitas Padjadjaran", "Universitas Jambi", "Universitas Airlangga");
+$s2 = array("Universitas Indonesia", "Institut Pertanian Bogor", "Universitas Gadjah Mada", "Institut Teknologi Sepuluh November", "Institut Teknologi Bandung", "Universitas Negeri Yogyakarta", "Yokohama National University", "Wollongong University", "Wageningen University", "Upn Veteran", "Vanderbilt University", "Universitas Padjadjaran", "Universitas Jambi", "Universitas Airlangga", "Tokyo Institute Of Technology");
+$s3 = array("Universitas Indonesia", "Institut Pertanian Bogor", "Universitas Negeri Jakarta", "Universitas Sriwijaya", "Institut Teknologi Sepuluh November", "Universitas Padjadjaran", "Universitas Jambi", "Universitas Airlangga", "Tokyo Institute Of Technology");
+
 echo "[";
 
-for ($a = 0; $a < 10000; $a++) {
+for ($a = 0; $a < 10; $a++) {
+	$sd = array("", "", "", "SD Setia");
+	$smp = array("", "", "", "SMP Terbuka");
+	$sma = array("", "", "", "SMA Pasti");
+
+	$random = $faker->randomElement($array = array('SMA', 'S1', 'D3', 'D4', 'S1', 'S2', 'S3'));
 	$jk = $faker->randomElement($array = array('LK', 'PR'));
 	$jk_nip = ($jk == 'LK') ? 1 : 2;
 	$gender = ($jk == 'LK') ? 'male' : 'female';
 	$tahun_lahir  = rand(1945, 2001);
+	$tahun_sd  = rand(6, 8) + $tahun_lahir + 6;
 	$bulan_lahir  = rand(1, 12);
 	$bulan_lahir = ($bulan_lahir < 10) ? '0' . $bulan_lahir : $bulan_lahir;
 	$tanggal_lahir  = rand(1, 31);
@@ -357,7 +370,11 @@ for ($a = 0; $a < 10000; $a++) {
 	$bulan_pns = ($bulan_pns < 10) ? '0' . $bulan_pns : $bulan_pns;
 	$nip = $tahun_lahir . $bulan_lahir . $tanggal_lahir . ($tahun_lahir + $pns) . $bulan_pns . $jk_nip . $faker->randomElement($number);
 	$pensiun = $tahun_lahir + 60;
-	$num_instansi = $faker->numberBetween($min = 0, $max = count($instansi));
+	$num_instansi = rand(0, (count($instansi) - 1));
+	$city = $faker->city;
+	array_push($sd, "SD 1 " . $city);
+	array_push($smp, "SMP 1 " . $city);
+	array_push($sma, "SMA 1 " . $city);
 
 	// generate data nama, alamat
 	echo "{";
@@ -370,7 +387,7 @@ for ($a = 0; $a < 10000; $a++) {
 	echo "<br>";
 	echo '"jenis_kelamin": "' . $jk . '",';
 	echo "<br>";
-	echo '"tempat_lahir": "' . $faker->city . '",';
+	echo '"tempat_lahir": "' . $city . '",';
 	echo "<br>";
 	echo '"tanggal_lahir": "' . $lahir . '",';
 	echo "<br>";
@@ -401,7 +418,176 @@ for ($a = 0; $a < 10000; $a++) {
 	echo "<br>";
 	echo '"status_perkawinan": "' . $faker->randomElement($kawin = array("Belum Kawin", "Kawin", "Cerai Hidup", "Cerai Mati")) . '",';
 	echo "<br>";
-	echo '"Agama": "' . $faker->randomElement($agama = array("Islam", "Kristen Protestan", "Kristen Katholik", "Hindu", "Buddha", "Konghucu")) . '"';
+	echo '"Agama": "' . $faker->randomElement($agama = array("Islam", "Kristen Protestan", "Kristen Katholik", "Hindu", "Buddha", "Konghucu")) . '",';
+	echo "<br>";
+	echo '"Pendidikan": [ <br>';
+
+	if ($random == 'SMA') {
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($sd) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SD",<br>';
+		echo '"tahun_lulus" : "' . $tahun_sd . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($smp) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SMP",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + 3) . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($sma) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SMA",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + 6) . '"<br>';
+		echo '} <br>';
+	} elseif ($random == 'D3') {
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($sd) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SD",<br>';
+		echo '"tahun_lulus" : "' . $tahun_sd . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($smp) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SMP",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + 3) . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($sma) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SMA",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + 6) . '"<br>';
+		echo '}, <br>';
+
+		$choose = $faker->randomElement($d3);
+		if ($choose == "Akademi Ilmu Statistik")
+			$jurusan = "Ak. Ilmu Statistik";
+		elseif ($choose == "Sekolah Tinggi Ilmu Statistik" || $choose == "Politeknik Statistika STIS")
+			$jurusan = "Statistika";
+		else
+			$jurusan = $faker->randomElement(array("Akuntansi", "Statistika", "Ekonomi", "Manajemen"));
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $choose . '",<br>';
+		echo '"nama_prodi_jurusan" : "' . $jurusan . '",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + 9) . '"<br>';
+		echo '} <br>';
+	} elseif ($random == 'D4') {
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($sd) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SD",<br>';
+		echo '"tahun_lulus" : "' . $tahun_sd . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($smp) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SMP",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + 3) . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($sma) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SMA",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + 6) . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($d4) . '",<br>';
+		echo '"nama_prodi_jurusan" : "' . $faker->randomElement($array = array("Statistika Terapan", "Komputasi Statistik", "Ilmu Komputer", "Manajemen Terapan", "Ekonomi Terapan")) . '",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + rand(10, 12)) . '"<br>';
+		echo '} <br>';
+	} elseif ($random == 'S1') {
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($sd) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SD",<br>';
+		echo '"tahun_lulus" : "' . $tahun_sd . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($smp) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SMP",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + 3) . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($sma) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SMA",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + 6) . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($s1) . '",<br>';
+		echo '"nama_prodi_jurusan" : "' . $faker->randomElement($array = array("Ilmu Ekonomi", "Statistika", "Ilmu Statistika", "Ilmu Komputer", "Manajemen")) . '",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + rand(10, 12)) . '"<br>';
+		echo '} <br>';
+	} elseif ($random == 'S2') {
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($sd) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SD",<br>';
+		echo '"tahun_lulus" : "' . $tahun_sd . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($smp) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SMP",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + 3) . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($sma) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SMA",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + 6) . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($s1) . '",<br>';
+		echo '"nama_prodi_jurusan" : "' . $faker->randomElement($array = array("Ilmu Ekonomi", "Statistika", "Ilmu Statistika", "Ilmu Komputer", "Manajemen")) . '",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + rand(10, 12)) . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($s2) . '",<br>';
+		echo '"nama_prodi_jurusan" : "' . $faker->randomElement($array = array("Ilmu Ekonomi", "Statistika", "Ilmu Komputer", "Manajemen", "Statistika Terapan")) . '",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + rand(13, 25)) . '"<br>';
+		echo '} <br>';
+	} else {
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($sd) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SD",<br>';
+		echo '"tahun_lulus" : "' . $tahun_sd . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($smp) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SMP",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + 3) . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($sma) . '",<br>';
+		echo '"nama_prodi_jurusan" : "SMA",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + 6) . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($s1) . '",<br>';
+		echo '"nama_prodi_jurusan" : "' . $faker->randomElement($array = array("Ilmu Ekonomi", "Statistika", "Ilmu Statistika", "Ilmu Komputer", "Manajemen")) . '",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + rand(10, 12)) . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($s2) . '",<br>';
+		echo '"nama_prodi_jurusan" : "' . $faker->randomElement($array = array("Ilmu Ekonomi", "Statistika", "Ilmu Komputer", "Manajemen", "Statistika Terapan")) . '",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + rand(13, 25)) . '"<br>';
+		echo '}, <br>';
+
+		echo '{ <br>';
+		echo '"nama_instansi_pendidikan" : "' . $faker->randomElement($s3) . '",<br>';
+		echo '"nama_prodi_jurusan" : "' . $faker->randomElement($array = array("Ekonomi Pertanian", "Statistika", "Philosophy", "Perencanaan Pembangunan Wilayah dan Pedesaan", "Ekonomi", "engineering", "Human Fam Studies")) . '",<br>';
+		echo '"tahun_lulus" : "' . ($tahun_sd + rand(20, 35)) . '"<br>';
+		echo '}<br>';
+	}
+	echo "]";
 	echo "<br>";
 	echo "},";
 	echo "<br>";
