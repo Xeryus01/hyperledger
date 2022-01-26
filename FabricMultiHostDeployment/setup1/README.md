@@ -5,6 +5,6 @@ Pada network Hyperledger Fabric ini, digunakan 5 virtual machine yang terdiri da
 # Langkah menjalankan network Hyperledger Fabric
 
 - execute bash script pada tiap virtual machine dengan urutan
-  1. run start-vm script (vm1, vm2, vm3, vm4, vm5)
+  1. run start-vm script dengan urutan vm4, vm5, vm1, vm2, vm3
   2. run deployChaincode.sh (vm1)
   3. run installAndApproveChaincode.sh (vm2 dan vm3)
