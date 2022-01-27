@@ -134,11 +134,11 @@ Orderer: &OrdererDefaults
   Addresses:
     - orderer.example.com:7050
 
-  BatchTimeout: 3600s
+  BatchTimeout: 2s
   BatchSize:
     MaxMessageCount: 10
-    AbsoluteMaxBytes: 2048 MB
-    PreferredMaxBytes: 1024 MB
+    AbsoluteMaxBytes: 99 MB
+    PreferredMaxBytes: 512 KB
 
   Organizations:
   Policies:

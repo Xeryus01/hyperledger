@@ -53,13 +53,13 @@ peer:
     # MinInterval is the minimum permitted time between client pings.
     # If clients send pings more frequently, the peer server will
     # disconnect them
-    minInterval: 60s
+    minInterval: 100s
     # Client keepalive settings for communicating with other peer nodes
     client:
       # Interval is the time between pings to peer nodes.  This must
       # greater than or equal to the minInterval specified by peer
       # nodes
-      interval: 60s
+      interval: 100s
       # Timeout is the duration the client waits for a response from
       # peer nodes before closing the connection
       timeout: 3600s
@@ -69,7 +69,7 @@ peer:
       # Interval is the time between pings to ordering nodes.  This must
       # greater than or equal to the minInterval specified by ordering
       # nodes.
-      interval: 60s
+      interval: 100s
       # Timeout is the duration the client waits for a response from
       # ordering nodes before closing the connection
       timeout: 3600s
@@ -102,14 +102,14 @@ peer:
     orgLeader: false
 
     # Interval for membershipTracker polling
-    membershipTrackerInterval: 5s
+    membershipTrackerInterval: 10s
 
     # Overrides the endpoint that the peer publishes to peers
     # in its organization. For peers in foreign organizations
     # see 'externalEndpoint'
     endpoint:
     # Maximum count of blocks stored in memory
-    maxBlockCountToStore: 100
+    maxBlockCountToStore: 500
     # Max time between consecutive message pushes(unit: millisecond)
     maxPropagationBurstLatency: 10ms
     # Max number of messages stored until a push is triggered to remote peers
@@ -143,14 +143,14 @@ peer:
     sendBuffSize: 200
     # Time to wait before pull engine processes incoming digests (unit: second)
     # Should be slightly smaller than requestWaitTime
-    digestWaitTime: 1s
+    digestWaitTime: 10s
     # Time to wait before pull engine removes incoming nonce (unit: milliseconds)
     # Should be slightly bigger than digestWaitTime
-    requestWaitTime: 1500ms
+    requestWaitTime: 15000ms
     # Time to wait before pull engine ends pull (unit: second)
-    responseWaitTime: 2s
+    responseWaitTime: 20s
     # Alive check interval(unit: second)
-    aliveTimeInterval: 5s
+    aliveTimeInterval: 50s
     # Alive expiration timeout(unit: second)
     aliveExpirationTimeout: 3600s
     # Reconnect interval(unit: second)
@@ -172,7 +172,7 @@ peer:
     pvtData:
       # pullRetryThreshold determines the maximum duration of time private data corresponding for a given block
       # would be attempted to be pulled from peers until the block would be committed without the private data
-      pullRetryThreshold: 60s
+      pullRetryThreshold: 3600s
       # As private data enters the transient store, it is associated with the peer's ledger's height at that time.
       # transientstoreMaxBlockRetention defines the maximum difference between the current ledger's height upon commit,
       # and the private data residing inside the transient store that is guaranteed not to be purged.
@@ -187,12 +187,12 @@ peer:
       # from peers that is soon to be purged in next N blocks.
       # This helps a newly joined peer catch up to current
       # blockchain height quicker.
-      btlPullMargin: 10
+      btlPullMargin: 80
       # the process of reconciliation is done in an endless loop, while in each iteration reconciler tries to
       # pull from the other peers the most recent missing blocks with a maximum batch size limitation.
       # reconcileBatchSize determines the maximum batch size of missing private data that will be reconciled in a
       # single iteration.
-      reconcileBatchSize: 10
+      reconcileBatchSize: 100
       # reconcileSleepInterval determines the time reconciler sleeps from end of an iteration until the beginning
       # of the next reconciliation iteration.
       reconcileSleepInterval: 1m
@@ -467,7 +467,7 @@ vm:
       LogConfig:
         Type: json-file
         Config:
-          max-size: "50m"
+          max-size: "500m"
           max-file: "5"
       Memory: 2147483648
 
@@ -581,7 +581,7 @@ ledger:
     # CouchDB - store state database in CouchDB
     stateDatabase: goleveldb
     # Limit on the number of records to return per query
-    totalQueryLimit: 100000
+    totalQueryLimit: 1000000
     couchDBConfig:
       # It is recommended to run CouchDB on the same server as the peer, and
       # not map the CouchDB container port to a server port in docker-compose.
@@ -605,9 +605,9 @@ ledger:
       # Note that chaincode queries are only bound by totalQueryLimit.
       # Internally the chaincode may execute multiple CouchDB queries,
       # each of size internalQueryLimit.
-      internalQueryLimit: 1000
+      internalQueryLimit: 2048
       # Limit on the number of records per CouchDB bulk update batch
-      maxBatchUpdateSize: 1000
+      maxBatchUpdateSize: 2048
       # Warm indexes after every N blocks.
       # This option warms any indexes that have been
       # deployed to CouchDB after every N blocks.
@@ -624,7 +624,7 @@ ledger:
       # cache. Note that CacheSize needs to be a multiple of 32 MB. If it is not a multiple
       # of 32 MB, the peer would round the size to the next multiple of 32 MB.
       # To disable the cache, 0 MB needs to be assigned to the cacheSize.
-      cacheSize: 64
+      cacheSize: 128
 
   history:
     # enableHistoryDatabase - options are true or false
