@@ -52,7 +52,7 @@ chaincodeInvokeInit() {
         --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA \
         -C $CHANNEL_NAME -n ${CC_NAME} \
         --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA \
-         --peerAddresses localhost:11051 --tlsRootCertFiles $PEER0_ORG3_CA \
+        --peerAddresses localhost:11051 --tlsRootCertFiles $PEER0_ORG3_CA \
         --isInit -c '{"Args":[]}'
 
 }
@@ -69,9 +69,9 @@ chaincodeInvoke() {
         --tls $CORE_PEER_TLS_ENABLED \
         --cafile $ORDERER_CA \
         -C $CHANNEL_NAME -n ${CC_NAME} \
-        --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA \
         --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA \
-        -c '{"function": "initLedger","Args":[]}'
+        --peerAddresses localhost:11051 --tlsRootCertFiles $PEER0_ORG3_CA \
+        -c '{"function": "Init10000","Args":[]}'
 
 }
 
@@ -79,7 +79,7 @@ chaincodeQuery() {
     setGlobalsForPeer0Org1
 
     # Query All Pegawai
-    peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["queryAllPegawai"]}'
+    peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["queryAllPegawai"]}' >&log.txt
  
 }
 
@@ -90,4 +90,4 @@ chaincodeInvokeInit
 sleep 5
 chaincodeInvoke
 sleep 3
-chaincodeQuery
+# chaincodeQuery

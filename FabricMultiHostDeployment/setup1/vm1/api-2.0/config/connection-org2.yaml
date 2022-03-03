@@ -12,7 +12,6 @@ organizations:
     mspid: Org2MSP
     peers:
     - peer0.org2.example.com
-    - peer1.org2.example.com
     certificateAuthorities:
     - ca.org2.example.com
 peers:
