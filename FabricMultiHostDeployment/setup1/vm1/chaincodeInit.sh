@@ -24,7 +24,6 @@ CHANNEL_NAME="mychannel"
 # CC_RUNTIME_LANGUAGE diset sebagai node karena peneliti memakai nodejs sebagai bahasa pemrogramannya
 CC_RUNTIME_LANGUAGE=node
 VERSION="1"
-CC_SRC_PATH="./../../artifacts/src/pegawai/"
 CC_NAME="pegawai"
 
 commitChaincodeDefinition() {
@@ -85,9 +84,9 @@ chaincodeQuery() {
 
 # Eksekusi semua fungsi di atas
 commitChaincodeDefinition
-queryCommitted
-chaincodeInvokeInit
-sleep 5
+# queryCommitted
+# chaincodeInvokeInit
+# sleep 5
 # chaincodeInvoke
 # sleep 3
 # chaincodeQuery
