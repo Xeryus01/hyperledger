@@ -44,7 +44,7 @@ services:
       # - CORE_PEER_CHAINCODEADDRESS=peer0.org3.example.com:7052
       # - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       # Peer used to bootstrap gossip within organisation
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org3.example.com:12051
+      # - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org3.example.com:12051
       # Exposed for discovery Service
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org3.example.com:11051
 
