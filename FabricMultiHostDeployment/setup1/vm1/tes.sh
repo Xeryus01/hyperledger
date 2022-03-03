@@ -40,7 +40,7 @@ chaincodeInvoke() {
         --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA \
         --peerAddresses localhost:11051 --tlsRootCertFiles $PEER0_ORG3_CA \
         -c '{"function": "createPegawai","Args":[
-"'$i'", "nip orang ke-'$i'", "nama dummy ke-'$i'", "LK", "Kota Dummy ke-'$i'", "tanggal '$i'", "081'$i'", "082'$i'", "email dummy-'$i'@gmail.com", "alamat dummy ke-'$i'", "tahun'$i'", "jabatan '$i'", "status '$i'", "golongan '$i'", "instansi '$i'", "alamat_instansi '$i'", "08-'$i'", "kawin", "islam", "[{\"nama_instansi_pendidikan\": \"SD Setia\",nama_prodi_jurusan: \"SD\",\"tahun_lulus\": \"1999\"},{\"nama_instansi_pendidikan\": \"\",\"nama_prodi_jurusan\": \"SMP\",\"tahun_lulus\": \"2002\"},{\"nama_instansi_pendidikan\": \"Universitas Padjadjaran\",\"nama_prodi_jurusan\": \"Ilmu Ekonomi\",\"tahun_lulus\": \"2009\"}]"]}'
+"'$i'", "nip orang ke-'$i'", "nama dummy ke-'$i'", "LK", "Kota Dummy ke-'$i'", "tanggal '$i'", "081'$i'", "082'$i'", "email dummy-'$i'@gmail.com", "alamat dummy ke-'$i'", "tahun'$i'", "jabatan '$i'", "status '$i'", "golongan '$i'", "instansi '$i'", "alamat_instansi '$i'", "08-'$i'", "kawin", "islam", "[{\"nama_instansi_pendidikan\":\"SD Setia\",\"nama_prodi_jurusan\":\"SD\",\"tahun_lulus\":\"1999\"},{\"nama_instansi_pendidikan\":\"\",\"nama_prodi_jurusan\":\"SMP\",\"tahun_lulus\":\"2002\"},{\"nama_instansi_pendidikan\":\"SMA 1 Manado\",\"nama_prodi_jurusan\":\"SMA\",\"tahun_lulus\":\"2005\"},{\"nama_instansi_pendidikan\":\"Universitas Padjadjaran\",\"nama_prodi_jurusan\":\"Ilmu Ekonomi\",\"tahun_lulus\":\"2009\"}]"]}'
     done
 }
 
