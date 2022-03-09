@@ -1,2 +1,2 @@
 Installed chaincodes on peer:
-Package ID: pegawai_1:b19b765ac65f5b9df3131f4b1323b4c6cdb5669220667a19a4b996734b27ae9a, Label: pegawai_1
+Package ID: pegawai_1:80261cfe2be158391c42bc8a3ba774e09fa11c1b55c91d7a9471e76f488e2f4a, Label: pegawai_1
