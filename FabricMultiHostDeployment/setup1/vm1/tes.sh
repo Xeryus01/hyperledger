@@ -8,7 +8,7 @@ export FABRIC_CFG_PATH=${PWD}/../../artifacts/channel/config/
 export CHANNEL_NAME=mychannel
 
 # ganti ORD_IP (IP Orderer) sesuai dengan IP pada VM orderer yang digunakan
-export ORD_IP=34.101.101.106
+export ORD_IP=localhost
 export ORD_PORT=7050
 
 # Fungsi untuk export variable sesuai dengan Peer0Org1
@@ -30,8 +30,6 @@ CC_NAME="pegawai"
 chaincodeInvoke() {
     setGlobalsForPeer0Org1
 
-    for i in {340100400..340100402}
-    do
     peer chaincode invoke -o ${ORD_IP}:${ORD_PORT} \
         --ordererTLSHostnameOverride orderer.example.com \
         --tls $CORE_PEER_TLS_ENABLED \
@@ -39,16 +37,32 @@ chaincodeInvoke() {
         -C $CHANNEL_NAME -n ${CC_NAME} \
         --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA \
         --peerAddresses localhost:11051 --tlsRootCertFiles $PEER0_ORG3_CA \
-        -c '{"function": "createPegawai","Args":[
-"'$i'", "nip orang ke-'$i'", "nama dummy ke-'$i'", "LK", "Kota Dummy ke-'$i'", "tanggal '$i'", "081'$i'", "082'$i'", "email dummy-'$i'@gmail.com", "alamat dummy ke-'$i'", "tahun'$i'", "jabatan '$i'", "status '$i'", "golongan '$i'", "instansi '$i'", "alamat_instansi '$i'", "08-'$i'", "kawin", "islam", "[{\"nama_instansi_pendidikan\":\"SD Setia\",\"nama_prodi_jurusan\":\"SD\",\"tahun_lulus\":\"1999\"},{\"nama_instansi_pendidikan\":\"\",\"nama_prodi_jurusan\":\"SMP\",\"tahun_lulus\":\"2002\"},{\"nama_instansi_pendidikan\":\"SMA 1 Manado\",\"nama_prodi_jurusan\":\"SMA\",\"tahun_lulus\":\"2005\"},{\"nama_instansi_pendidikan\":\"Universitas Padjadjaran\",\"nama_prodi_jurusan\":\"Ilmu Ekonomi\",\"tahun_lulus\":\"2009\"}]"]}'
-    done
+        -c '{"function": "Init","Args":["5000"]}'
+
+#     for i in {400000..400010}
+#     do
+#     peer chaincode invoke -o ${ORD_IP}:${ORD_PORT} \
+#         --ordererTLSHostnameOverride orderer.example.com \
+#         --tls $CORE_PEER_TLS_ENABLED \
+#         --cafile $ORDERER_CA \
+#         -C $CHANNEL_NAME -n ${CC_NAME} \
+#         --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA \
+#         --peerAddresses localhost:11051 --tlsRootCertFiles $PEER0_ORG3_CA \
+#         -c '{"function": "createPegawai","Args":[
+# "xxx'$i'", "nip orang ke-'$i'", "nama dummy ke-'$i'", "LK", "Kota Dummy ke-'$i'", "tanggal '$i'", "081'$i'", "082'$i'", "email dummy-'$i'@gmail.com", "alamat dummy ke-'$i'", "tahun'$i'", "jabatan '$i'", "status '$i'", "golongan '$i'", "instansi '$i'", "alamat_instansi '$i'", "08-'$i'", "kawin", "islam", "[{\"nama_instansi_pendidikan\":\"SD Setia\",\"nama_prodi_jurusan\":\"SD\",\"tahun_lulus\":\"1999\"},{\"nama_instansi_pendidikan\":\"\",\"nama_prodi_jurusan\":\"SMP\",\"tahun_lulus\":\"2002\"},{\"nama_instansi_pendidikan\":\"SMA 1 Manado\",\"nama_prodi_jurusan\":\"SMA\",\"tahun_lulus\":\"2005\"},{\"nama_instansi_pendidikan\":\"Universitas Padjadjaran\",\"nama_prodi_jurusan\":\"Ilmu Ekonomi\",\"tahun_lulus\":\"2009\"}]"]}'
+#     done
 }
 
 chaincodeQuery() {
     setGlobalsForPeer0Org1
 
+    # peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["QueryAssets", "{\"selector\":{\"status_perkawinan\":\"Kawin\"}, \"use_index\":[\"_design/tes\", \"tes\"]}"]}'
+    # peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["GetQueryResultForQueryString", "{\"selector\":{\"Agama\":\"Islam\"}, \"use_index\":[\"_design/tes\", \"tes\"]}"]}'
+
     # Query All Pegawai
-    peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["queryAllPegawai"]}' >&log.txt
+    peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["queryAllPegawai"]}'
+    # peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["queryPegawai", "xxx400010"]}'
+    # peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["QueryByAgama", "Islam"]}'
  
 }
 
@@ -57,6 +71,6 @@ chaincodeQuery() {
 # queryCommitted
 # chaincodeInvokeInit
 # sleep 5
-chaincodeInvoke
-# sleep 3
-# chaincodeQuery
+# chaincodeInvoke
+# sleep 5
+chaincodeQuery
