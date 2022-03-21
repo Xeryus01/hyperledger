@@ -8,7 +8,7 @@ export FABRIC_CFG_PATH=${PWD}/../../artifacts/channel/config/
 export CHANNEL_NAME=mychannel
 
 # ganti ORD_IP (IP Orderer) sesuai dengan IP pada VM orderer yang digunakan
-export ORD_IP=34.101.101.106
+export ORD_IP=34.101.41.164
 export ORD_PORT=7050
 
 # Fungsi untuk export variable sesuai dengan Peer0Org1
@@ -62,6 +62,7 @@ chaincodeQuery() {
     # Query All Pegawai
     peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["queryAllPegawai"]}'
     # peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["queryPegawai", "xxx400010"]}'
+    # peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["queryPegawaiByRange", "xxx400000", "xxx400009"]}'
     # peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["QueryByAgama", "Islam"]}'
  
 }
