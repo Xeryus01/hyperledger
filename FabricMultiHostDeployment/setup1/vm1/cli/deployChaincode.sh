@@ -1,3 +1,5 @@
+source ./.bashrc
+
 peer lifecycle chaincode commit -o orderer.example.com:7050  \
     -ordererTLSHostnameOverride orderer.example.com --tls true --cafile ${ORDERER_CA}  \
     --channelID ${CHANNEL_NAME} --name ${CC_NAME}  \
