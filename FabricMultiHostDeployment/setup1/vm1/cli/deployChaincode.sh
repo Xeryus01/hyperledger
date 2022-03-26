@@ -1,7 +1,5 @@
-source ./.bashrc
-
 peer lifecycle chaincode commit -o orderer.example.com:7050  \
-    -ordererTLSHostnameOverride orderer.example.com --tls true --cafile ${ORDERER_CA}  \
+    --ordererTLSHostnameOverride orderer.example.com --tls true --cafile ${ORDERER_CA}  \
     --channelID ${CHANNEL_NAME} --name ${CC_NAME}  \
     --signature-policy "OutOf(2, 'Org1MSP.peer', 'Org2MSP.peer', 'Org3MSP.peer')" \
     --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ORG1} \

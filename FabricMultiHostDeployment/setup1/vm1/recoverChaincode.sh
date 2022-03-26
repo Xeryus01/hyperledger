@@ -16,7 +16,7 @@ setGlobalsForPeer0Org1() {
     export CORE_PEER_LOCALMSPID="Org1MSP"
     export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG1_CA
     export CORE_PEER_MSPCONFIGPATH=${PWD}/../../artifacts/channel/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
-    export CORE_PEER_ADDRESS=localhost:9051
+    export CORE_PEER_ADDRESS=localhost:7051
 
 }
 
@@ -63,13 +63,13 @@ checkCommitReadyness() {
     setGlobalsForPeer0Org1
     peer lifecycle chaincode checkcommitreadiness --channelID $CHANNEL_NAME \
         --signature-policy "OutOf(2, 'Org1MSP.peer', 'Org1MSP.peer', 'Org3MSP.peer')" \
-        --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG1_CA \
+        --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA \
         --name ${CC_NAME} --version ${VERSION} --sequence ${VERSION} --output json --init-required
     echo "===================== checking commit readyness from org 2 ===================== "
 }
 
 # Eksekusi semua fungsi di atas
-# packageChaincode
-# installChaincode
-# queryInstalled
-checkCommitReadyness
+packageChaincode
+installChaincode
+queryInstalled
+# checkCommitReadyness
