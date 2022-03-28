@@ -8,7 +8,7 @@ export FABRIC_CFG_PATH=${PWD}/../../artifacts/channel/config/
 export CHANNEL_NAME=mychannel
 
 # ganti ORD_IP (IP Orderer) sesuai dengan IP pada VM orderer yang digunakan
-export ORD_IP=34.101.41.164
+export ORD_IP=34.101.154.102
 export ORD_PORT=7050
 
 # Fungsi untuk export variable sesuai dengan Peer0Org1
@@ -57,6 +57,21 @@ queryInstalled() {
     echo "===================== Query installed successful on peer0.org1 on channel ===================== "
 }
 
+# Fungsi untuk menyetujui chaincode pada Org1
+approveForMyOrg1() {
+    setGlobalsForPeer0Org1
+
+    peer lifecycle chaincode approveformyorg -o ${ORD_IP}:${ORD_PORT} \
+        --ordererTLSHostnameOverride orderer.example.com --tls \
+        --signature-policy "OutOf(2, 'Org1MSP.peer', 'Org2MSP.peer', 'Org3MSP.peer')" \
+        --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${VERSION} \
+        --init-required false --package-id ${PACKAGE_ID} \
+        --sequence ${VERSION}
+
+    echo "===================== chaincode approved from org 1 ===================== "
+
+}
+
 # Fungsi untuk mengecek kesiapan tiap peer anggota channel untuk penggunaan chaincode
 checkCommitReadyness() {
 
@@ -69,7 +84,8 @@ checkCommitReadyness() {
 }
 
 # Eksekusi semua fungsi di atas
-packageChaincode
-installChaincode
-queryInstalled
-# checkCommitReadyness
+# packageChaincode
+# installChaincode
+# queryInstalled
+approveForMyOrg1
+checkCommitReadyness
