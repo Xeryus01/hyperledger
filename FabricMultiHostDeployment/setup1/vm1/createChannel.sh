@@ -50,5 +50,5 @@ updateAnchorPeers(){
 
 # Eksekusi semua fungsi di atas
 createChannel
-# joinChannel
-# updateAnchorPeers
+joinChannel
+updateAnchorPeers
