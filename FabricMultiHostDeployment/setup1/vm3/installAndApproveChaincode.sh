@@ -5,7 +5,7 @@ export FABRIC_CFG_PATH=${PWD}/../../artifacts/channel/config/
 
 
 export CHANNEL_NAME=mychannel
-export ORD_IP=34.101.154.102
+export ORD_IP=34.101.36.221
 export ORD_PORT=7050
 
 setGlobalsForPeer0Org3() {
