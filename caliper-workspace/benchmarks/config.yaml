@@ -1,0 +1,47 @@
+test:
+  name: my-asset-benchmark
+  description: test benchmark
+  workers:
+    type: local
+    number: 1
+  rounds:
+    - label: createAsset
+      description: Query asset benchmark
+      chaincodeId: fabcar
+      txNumber: 25
+      rateControl:
+        type: fixed-rate
+        opts: { tps: 25 }
+      callback: benchmarks/createCar.js
+      arguments:
+        assets: 10
+    - label: queryAllAsset
+      description: Query asset benchmark
+      chaincodeId: fabcar
+      txNumber: 25
+      rateControl:
+        type: fixed-rate
+        opts: { tps: 25 }
+      callback: benchmarks/queryAllCars.js
+      arguments:
+        assets: 10
+    - label: queryAsset
+      description: Query asset benchmark
+      chaincodeId: fabcar
+      txNumber: 25
+      rateControl:
+        type: fixed-rate
+        opts: { tps: 25 }
+      callback: benchmarks/queryCar.js
+      arguments:
+        assets: 10
+  
+observer:
+  type: local
+  interval: 1
+monitor:
+  type:
+  - docker
+  docker:
+    containers:
+    - all

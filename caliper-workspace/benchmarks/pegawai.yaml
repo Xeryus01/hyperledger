@@ -1,0 +1,72 @@
+test:
+  name: my-asset-benchmark
+  description: test benchmark
+  workers:
+    type: local
+    number: 1
+  rounds:
+    - label: createSingle
+      description: create asset benchmark
+      chaincodeId: pegawai
+      txNumber: 100
+      rateControl:
+        type: fixed-rate
+        opts: { tps: 1000 }
+      callback: benchmarks/pegawai/createSingle.js
+      arguments:
+        assets: 10000
+
+    # - label: createPegawai
+    #   description: create asset benchmark
+    #   chaincodeId: pegawai
+    #   txNumber: 1
+    #   rateControl:
+    #     type: fixed-rate
+    #     opts: { tps: 1000 }
+    #   callback: benchmarks/pegawai/init.js
+    #   arguments:
+    #     assets: 10000
+
+    - label: queryPegawai
+      description: query asset benchmark
+      chaincodeId: pegawai
+      txNumber: 100
+      rateControl:
+        type: fixed-rate
+        opts: { tps: 1000 }
+      callback: benchmarks/pegawai/queryPegawai.js
+      arguments:
+        assets: 10000
+
+    - label: deletePegawai
+      description: delete asset benchmark
+      chaincodeId: pegawai
+      txNumber: 100
+      rateControl:
+        type: fixed-rate
+        opts: { tps: 1000 }
+      callback: benchmarks/pegawai/deletePegawai.js
+      arguments:
+        assets: 10000
+
+    # - label: createBulkPegawai
+    #   description: query asset benchmark
+    #   chaincodeId: pegawai
+    #   txDuration: 30
+    #   rateControl: 
+    #     type: fixed-backlog
+    #     opts:
+    #       unfinished_per_client: 1
+    #   callback: benchmarks/pegawai/init.js
+    #   arguments:
+    #     assets: 10000
+  
+observer:
+  type: local
+  interval: 1
+monitor:
+  type:
+  - docker
+  docker:
+    containers:
+    - all
