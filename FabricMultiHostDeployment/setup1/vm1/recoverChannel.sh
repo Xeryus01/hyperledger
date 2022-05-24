@@ -6,7 +6,7 @@ export FABRIC_CFG_PATH=${PWD}/../../artifacts/channel/config/
 export CHANNEL_NAME=mychannel
 
 # ganti ORD_IP (IP Orderer) sesuai dengan IP pada VM orderer yang digunakan
-export ORD_IP=34.101.210.50
+export ORD_IP=157.230.251.53
 export ORD_PORT=7050
 
 # Fungsi untuk export variable sesuai dengan Peer0Org2
